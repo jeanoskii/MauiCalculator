@@ -3,15 +3,19 @@
 public partial class MainPage : ContentPage
 {
     //int count = 0; Unnecessary
-
+    bool hasDecimal = false;
+    bool isFreshInput = true;
     enum Operator
     {
         Addition,
         Multiplication,
         Division,
         Subtraction,
-        Exponent
+        Exponent,
+        None
     }
+
+    Operator selectedOp = Operator.None;
 
 	public MainPage()
 	{
@@ -23,24 +27,63 @@ public partial class MainPage : ContentPage
     //	count++;
     //} Unnecessary
 
-    private double calculate(double[] operands, Operator op) {
+    private Operator calculate(double[] operands, Operator op) {
+        double result = 0;
         switch (op)
         {
             case Operator.Addition:
-                return operands[0] + operands[2];
+                result = operands[0] + operands[1];
+                break;
+            case Operator.Multiplication:   
+                result = operands[0] * operands[1];
+                break;
+            case Operator.Division:
+                result = operands[0] / operands[1];
+                break;
+            case Operator.Subtraction:
+                result = operands[0] - operands[1];
+                break;
+            case Operator.Exponent:
+                Math.Pow(operands[0], operands[1]);
+                break;
         }
-        return 0;
+        setOutput(result);
+        return selectedOp;
     }
 
+    private void setOutput(double result)
+    {
+        lblInputOutput.Text = result.ToString();
+    }
 
     private void btnBackSpace_Clicked(object sender, EventArgs e)
     {
+        hasDecimal = false;
 		lblInputOutput.Text = "0";
     }
 
     private void addInputOutputText(char input)
     {
-      lblInputOutput.Text = (lblInputOutput.Text == "0") ? input.ToString() : lblInputOutput.Text += input;
+        if (input=='.')
+        {
+            lblInputOutput.Text = (!hasDecimal) ? lblInputOutput.Text += input : lblInputOutput.Text;
+            hasDecimal = lblInputOutput.Text.Contains('.');
+            return;
+        }
+        lblInputOutput.Text = (lblInputOutput.Text == "0" || isFreshInput) ? input.ToString() : lblInputOutput.Text += input;
+        isFreshInput = false;
+    }
+    
+    private void dcm_Clicked(object sender, EventArgs e)
+    {
+        addInputOutputText('.');
+    }
+
+    private void btn_add_Clicked(object sender, EventArgs e)
+    {
+        lblInput.Text = lblInputOutput.Text + " + ";
+        selectedOp = (selectedOp == Operator.None || isFreshInput) ? Operator.Addition : calculate(new double[] { Double.Parse(lblInput.Text.Split(' ')[0]), Double.Parse(lblInputOutput.Text) }, selectedOp);
+        isFreshInput = true;
     }
 
     private void btn0_clicked(object sender, EventArgs e)
@@ -92,5 +135,6 @@ public partial class MainPage : ContentPage
     {
         addInputOutputText('9');
     }
+
 }
 
