@@ -14,7 +14,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" FontSize="16" Text="0" x:Name="lblInput" />
+                <Label Grid.Row="0" Grid.Column="0" FontSize="16" x:Name="lblInput" />
                 <Label Grid.Row="1" Grid.Column="0" FontSize="32" Text="0" x:Name="lblInputOutput" />
                 <Grid Grid.Row="2" Grid.Column="0" RowDefinitions="20,100,100,100,100,100,100"
                   ColumnDefinitions="100,100,100,100,100">
@@ -33,9 +33,9 @@
                     <Button Grid.Row="4" Grid.Column="0" WidthRequest="100" HeightRequest="100" BackgroundColor="RoyalBlue" Text="1" x:Name="btn1" Clicked="btn1_Clicked" FontSize="Large" />
                     <Button Grid.Row="4" Grid.Column="1" WidthRequest="100" HeightRequest="100" BackgroundColor="RoyalBlue" Text="2" x:Name="btn2" Clicked="btn2_Clicked" FontSize="Large" />
                     <Button Grid.Row="4" Grid.Column="2" WidthRequest="100" HeightRequest="100" BackgroundColor="IndianRed" Text="3" x:Name="btn3" Clicked="btn3_Clicked" FontSize="Large" />
-                    <Button Grid.Row="4" Grid.Column="3" WidthRequest="100" HeightRequest="100" BackgroundColor="Orange" Text="=" FontSize="Large" />
+                    <Button Grid.Row="4" Grid.Column="3" WidthRequest="100" HeightRequest="100" BackgroundColor="Orange" x:Name="btn_eql" Clicked="btn_eql_Clicked" Text="=" FontSize="Large" />
                     <Button Grid.Row="5" Grid.Column="0" WidthRequest="100" HeightRequest="100" BackgroundColor="RoyalBlue" Text="%" FontSize="Large" />
-                    <Button Grid.Row="5" Grid.Column="1" WidthRequest="100" HeightRequest="100" BackgroundColor="RoyalBlue" Text="0" FontSize="Large" />
+                    <Button Grid.Row="5" Grid.Column="1" WidthRequest="100" HeightRequest="100" BackgroundColor="RoyalBlue" x:Name="btn0" Clicked="btn0_clicked" Text="0" FontSize="Large" />
                     <Button x:Name="btn_dcm" Grid.Row="5" Grid.Column="2" WidthRequest="100" HeightRequest="100" BackgroundColor="IndianRed" Text="." Clicked="dcm_Clicked" FontSize="Large" />
                     <Button Grid.Row="5" Grid.Column="3" WidthRequest="100" HeightRequest="100" BackgroundColor="Yellow" Text="^" />
                 </Grid>

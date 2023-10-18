@@ -27,26 +27,38 @@ public partial class MainPage : ContentPage
     //	count++;
     //} Unnecessary
 
-    private Operator calculate(double[] operands, Operator op) {
+    private Operator calculate(double[] operands, Operator op, bool isCalculatedByEqual) {
         double result = 0;
+        char symbol = ' ';
+
         switch (op)
         {
             case Operator.Addition:
+                symbol = '+';
                 result = operands[0] + operands[1];
                 break;
             case Operator.Multiplication:   
+                symbol = '*';
                 result = operands[0] * operands[1];
                 break;
             case Operator.Division:
+                symbol = '/';
                 result = operands[0] / operands[1];
                 break;
             case Operator.Subtraction:
+                symbol = '-';
                 result = operands[0] - operands[1];
                 break;
             case Operator.Exponent:
+                symbol = '^';
                 Math.Pow(operands[0], operands[1]);
                 break;
         }
+
+        lblInput.Text = (!isCalculatedByEqual) 
+            ? result.ToString() + " " + symbol 
+            : $"{operands[0]} {symbol} {operands[1]} = {result}";
+
         setOutput(result);
         return selectedOp;
     }
@@ -68,6 +80,7 @@ public partial class MainPage : ContentPage
         {
             lblInputOutput.Text = (!hasDecimal) ? lblInputOutput.Text += input : lblInputOutput.Text;
             hasDecimal = lblInputOutput.Text.Contains('.');
+            isFreshInput = false;
             return;
         }
         lblInputOutput.Text = (lblInputOutput.Text == "0" || isFreshInput) ? input.ToString() : lblInputOutput.Text += input;
@@ -81,9 +94,19 @@ public partial class MainPage : ContentPage
 
     private void btn_add_Clicked(object sender, EventArgs e)
     {
-        lblInput.Text = lblInputOutput.Text + " + ";
-        selectedOp = (selectedOp == Operator.None || isFreshInput) ? Operator.Addition : calculate(new double[] { Double.Parse(lblInput.Text.Split(' ')[0]), Double.Parse(lblInputOutput.Text) }, selectedOp);
+        lblInput.Text = lblInputOutput.Text + " +";
+        selectedOp = (selectedOp == Operator.None || isFreshInput) ? Operator.Addition : calculate(new double[] { Double.Parse(lblInput.Text.Split(' ')[0]), Double.Parse(lblInputOutput.Text) }, selectedOp, false);
         isFreshInput = true;
+        hasDecimal = false;
+    }
+
+    private void btn_eql_Clicked(object sender, EventArgs e)
+    {
+        Operator invert = (!lblInput.Text.Contains('='))
+            ? calculate(new double[] { Double.Parse(lblInput.Text.Split(' ')[0]), Double.Parse(lblInputOutput.Text) }, selectedOp, true)
+            : calculate(new double[] { Double.Parse(lblInputOutput.Text), Double.Parse(lblInput.Text.Split(' ')[2]) }, selectedOp, true);
+        isFreshInput = true;
+        hasDecimal = false;
     }
 
     private void btn0_clicked(object sender, EventArgs e)
