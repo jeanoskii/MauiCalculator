@@ -7,6 +7,7 @@ public partial class MainPage : ContentPage
     //int count = 0; Unnecessary
     bool hasDecimal = false;
     bool isFreshInput = true;
+    bool hasError = false;
     enum Operator
     {
         Addition,
@@ -45,7 +46,14 @@ public partial class MainPage : ContentPage
                 break;
             case Operator.Division:
                 symbol = '/';
-                result = operands[0] / operands[1];
+                try { 
+                    result = (operands[1] == 0) ? throw new DivideByZeroException("Cannot divide by zero") : operands[0] / operands[1]; 
+                } catch (DivideByZeroException e)
+                {
+                    hasError = true;
+                    lblInputOutput.Text = e.Message;
+                    return Operator.None;
+                }
                 break;
             case Operator.Subtraction:
                 symbol = '-';
@@ -61,23 +69,37 @@ public partial class MainPage : ContentPage
             ? result.ToString() + " " + symbol 
             : $"{operands[0]} {symbol} {operands[1]} = {result}";
 
-        setOutput(result);
+        lblInputOutput.Text = result.ToString();
         return selectedOp;
     }
 
-    private void setOutput(float result)
+    private void btn_ce_Clicked(object sender, EventArgs e)
     {
-        lblInputOutput.Text = result.ToString();
+        lblInputOutput.Text = "0";
     }
 
-    private void btnBackSpace_Clicked(object sender, EventArgs e)
+    private void btn_c_Clicked(object sender, EventArgs e)
     {
-        hasDecimal = false;
-		lblInputOutput.Text = "0";
+        lblInput.Text = "";
+        lblInputOutput.Text = "0";
+        selectedOp = Operator.None;
+        resetBools();
+    }
+
+    private void btn_c_Clicked()
+    {
+        lblInput.Text = "";
+        lblInputOutput.Text = "0";
+        selectedOp = Operator.None;
+        resetBools();
     }
 
     private void addInputOutputText(char input)
     {
+        if (hasError)
+        {
+            btn_c_Clicked();
+        }
         if (input=='.')
         {
             lblInputOutput.Text = (!hasDecimal) ? lblInputOutput.Text += input : lblInputOutput.Text;
@@ -96,29 +118,22 @@ public partial class MainPage : ContentPage
 
     private void btn_add_Clicked(object sender, EventArgs e)
     {
-        selectedOp = (selectedOp == Operator.None || isFreshInput) ? Operator.Addition : calculate(new float[] { float.Parse(lblInput.Text.Split(' ')[0]), float.Parse(lblInputOutput.Text) }, selectedOp, false);
-        if (lblInputOutput.Text.EndsWith('.'))
-        {
-            lblInputOutput.Text = lblInputOutput.Text.Substring(0, lblInputOutput.Text.Length - 1);
-        }
-        lblInput.Text = lblInputOutput.Text + " +";
-        resetBools();
+        operationMethodBody(Operator.Addition, '+');
     }
 
     private void btn_mltply_Clicked(object sender, EventArgs e)
     {
-        selectedOp = (selectedOp == Operator.None || isFreshInput) ? Operator.Multiplication : calculate(new float[] { float.Parse(lblInput.Text.Split(' ')[0]), float.Parse(lblInputOutput.Text) }, selectedOp, false);
-        if (lblInputOutput.Text.EndsWith('.'))
-        {
-            lblInputOutput.Text = lblInputOutput.Text.Substring(0, lblInputOutput.Text.Length - 1);
-        }
-        lblInput.Text = lblInputOutput.Text + " x";
-        resetBools();
+        operationMethodBody(Operator.Multiplication, '*');
     }
 
     private void btn_dvde_Clicked(object sender, EventArgs e)
     {
         operationMethodBody(Operator.Division, '/');
+    }
+
+    private void btn_sbtrct_Clicked(object sender, EventArgs e)
+    {
+        operationMethodBody(Operator.Subtraction, '-');
     }
 
     private void operationMethodBody(Operator op, char symb)
@@ -140,9 +155,19 @@ public partial class MainPage : ContentPage
 
     private void btn_eql_Clicked(object sender, EventArgs e)
     {
-        Operator invert = (!lblInput.Text.Contains('='))
-            ? calculate(new float[] { float.Parse(lblInput.Text.Split(' ')[0]), float.Parse(lblInputOutput.Text) }, selectedOp, true)
-            : calculate(new float[] { float.Parse(lblInputOutput.Text), float.Parse(lblInput.Text.Split(' ')[2]) }, selectedOp, true);
+        if (selectedOp == Operator.None)
+        {
+            return;
+        }
+        if (!hasError)
+        {
+            Operator invert = (!lblInput.Text.Contains('='))
+                ? calculate(new float[] { float.Parse(lblInput.Text.Split(' ')[0]), float.Parse(lblInputOutput.Text) }, selectedOp, true)
+                : calculate(new float[] { float.Parse(lblInputOutput.Text), float.Parse(lblInput.Text.Split(' ')[2]) }, selectedOp, true);
+        } else
+        {
+            btn_c_Clicked();
+        }
         resetBools();
     }
 
