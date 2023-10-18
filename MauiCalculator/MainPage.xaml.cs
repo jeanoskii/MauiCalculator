@@ -1,4 +1,6 @@
-﻿namespace MauiCalculator;
+﻿using System.Reflection.Emit;
+
+namespace MauiCalculator;
 
 public partial class MainPage : ContentPage
 {
@@ -27,8 +29,8 @@ public partial class MainPage : ContentPage
     //	count++;
     //} Unnecessary
 
-    private Operator calculate(double[] operands, Operator op, bool isCalculatedByEqual) {
-        double result = 0;
+    private Operator calculate(float[] operands, Operator op, bool isCalculatedByEqual) {
+        float result = 0;
         char symbol = ' ';
 
         switch (op)
@@ -63,7 +65,7 @@ public partial class MainPage : ContentPage
         return selectedOp;
     }
 
-    private void setOutput(double result)
+    private void setOutput(float result)
     {
         lblInputOutput.Text = result.ToString();
     }
@@ -94,8 +96,44 @@ public partial class MainPage : ContentPage
 
     private void btn_add_Clicked(object sender, EventArgs e)
     {
-        selectedOp = (selectedOp == Operator.None || isFreshInput) ? Operator.Addition : calculate(new double[] { Double.Parse(lblInput.Text.Split(' ')[0]), Double.Parse(lblInputOutput.Text) }, selectedOp, false);
+        selectedOp = (selectedOp == Operator.None || isFreshInput) ? Operator.Addition : calculate(new float[] { float.Parse(lblInput.Text.Split(' ')[0]), float.Parse(lblInputOutput.Text) }, selectedOp, false);
+        if (lblInputOutput.Text.EndsWith('.'))
+        {
+            lblInputOutput.Text = lblInputOutput.Text.Substring(0, lblInputOutput.Text.Length - 1);
+        }
         lblInput.Text = lblInputOutput.Text + " +";
+        resetBools();
+    }
+
+    private void btn_mltply_Clicked(object sender, EventArgs e)
+    {
+        selectedOp = (selectedOp == Operator.None || isFreshInput) ? Operator.Multiplication : calculate(new float[] { float.Parse(lblInput.Text.Split(' ')[0]), float.Parse(lblInputOutput.Text) }, selectedOp, false);
+        if (lblInputOutput.Text.EndsWith('.'))
+        {
+            lblInputOutput.Text = lblInputOutput.Text.Substring(0, lblInputOutput.Text.Length - 1);
+        }
+        lblInput.Text = lblInputOutput.Text + " x";
+        resetBools();
+    }
+
+    private void btn_dvde_Clicked(object sender, EventArgs e)
+    {
+        operationMethodBody(Operator.Division, '/');
+    }
+
+    private void operationMethodBody(Operator op, char symb)
+    {
+        selectedOp = (selectedOp == Operator.None || isFreshInput) ? op : calculate(new float[] { float.Parse(lblInput.Text.Split(' ')[0]), float.Parse(lblInputOutput.Text) }, selectedOp, false);
+        if (lblInputOutput.Text.EndsWith('.'))
+        {
+            lblInputOutput.Text = lblInputOutput.Text.Substring(0, lblInputOutput.Text.Length - 1);
+        }
+        lblInput.Text = lblInputOutput.Text + $" {symb}";
+        resetBools();
+    }
+
+    private void resetBools()
+    {
         isFreshInput = true;
         hasDecimal = false;
     }
@@ -103,10 +141,9 @@ public partial class MainPage : ContentPage
     private void btn_eql_Clicked(object sender, EventArgs e)
     {
         Operator invert = (!lblInput.Text.Contains('='))
-            ? calculate(new double[] { Double.Parse(lblInput.Text.Split(' ')[0]), Double.Parse(lblInputOutput.Text) }, selectedOp, true)
-            : calculate(new double[] { Double.Parse(lblInputOutput.Text), Double.Parse(lblInput.Text.Split(' ')[2]) }, selectedOp, true);
-        isFreshInput = true;
-        hasDecimal = false;
+            ? calculate(new float[] { float.Parse(lblInput.Text.Split(' ')[0]), float.Parse(lblInputOutput.Text) }, selectedOp, true)
+            : calculate(new float[] { float.Parse(lblInputOutput.Text), float.Parse(lblInput.Text.Split(' ')[2]) }, selectedOp, true);
+        resetBools();
     }
 
     private void btn0_clicked(object sender, EventArgs e)

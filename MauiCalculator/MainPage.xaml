@@ -19,8 +19,8 @@
                 <Grid Grid.Row="2" Grid.Column="0" RowDefinitions="20,100,100,100,100,100,100"
                   ColumnDefinitions="100,100,100,100,100">
                     <Button Grid.Row="1" Grid.Column="0" WidthRequest="100" HeightRequest="100" BackgroundColor="Blue" Text="C" FontSize="Large" x:Name="btnBackSpace" Clicked="btnBackSpace_Clicked" />
-                    <Button Grid.Row="1" Grid.Column="1" WidthRequest="100" HeightRequest="100" BackgroundColor="Pink" Text="/" FontSize="Large" />
-                    <Button Grid.Row="1" Grid.Column="2" WidthRequest="100" HeightRequest="100" BackgroundColor="Violet" Text="x" FontSize="Large" />
+                    <Button Grid.Row="1" Grid.Column="1" WidthRequest="100" HeightRequest="100" BackgroundColor="Pink" x:Name="btn_dvde" Clicked="btn_dvde_Clicked" Text="/" FontSize="Large" />
+                    <Button Grid.Row="1" Grid.Column="2" WidthRequest="100" HeightRequest="100" BackgroundColor="Violet" x:Name="btn_mltply" Clicked="btn_mltply_Clicked" Text="x" FontSize="Large" />
                     <Button Grid.Row="1" Grid.Column="3" WidthRequest="100" HeightRequest="100" BackgroundColor="Indigo" Text="Erase" FontSize="Medium" />
                     <Button Grid.Row="2" Grid.Column="0" WidthRequest="100" HeightRequest="100" BackgroundColor="RoyalBlue" Text="7" x:Name="btn7" Clicked="btn7_Clicked" FontSize="Large" />
                     <Button Grid.Row="2" Grid.Column="1" WidthRequest="100" HeightRequest="100" BackgroundColor="RoyalBlue" Text="8" x:Name="btn8" Clicked="btn8_Clicked" FontSize="Large" />
