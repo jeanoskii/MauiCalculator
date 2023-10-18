@@ -94,8 +94,8 @@ public partial class MainPage : ContentPage
 
     private void btn_add_Clicked(object sender, EventArgs e)
     {
-        lblInput.Text = lblInputOutput.Text + " +";
         selectedOp = (selectedOp == Operator.None || isFreshInput) ? Operator.Addition : calculate(new double[] { Double.Parse(lblInput.Text.Split(' ')[0]), Double.Parse(lblInputOutput.Text) }, selectedOp, false);
+        lblInput.Text = lblInputOutput.Text + " +";
         isFreshInput = true;
         hasDecimal = false;
     }
