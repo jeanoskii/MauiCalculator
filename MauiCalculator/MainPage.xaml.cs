@@ -2,7 +2,7 @@
 
 public partial class MainPage : ContentPage
 {
-	//int count = 0; Unnecessary
+    //int count = 0; Unnecessary
 
     enum Operator
     {
