@@ -148,6 +148,7 @@ public partial class MainPage : ContentPage
         operationMethodBody(Operator.Division, '/');
     }
 
+
     private void btn_sbtrct_Clicked(object sender, EventArgs e)
     {
         operationMethodBody(Operator.Subtraction, '-');
@@ -249,4 +250,5 @@ public partial class MainPage : ContentPage
     }
 
 }
+
 
