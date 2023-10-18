@@ -34,10 +34,10 @@
                     <Button Grid.Row="4" Grid.Column="1" WidthRequest="100" HeightRequest="100" BackgroundColor="RoyalBlue" Text="2" x:Name="btn2" Clicked="btn2_Clicked" FontSize="Large" />
                     <Button Grid.Row="4" Grid.Column="2" WidthRequest="100" HeightRequest="100" BackgroundColor="IndianRed" Text="3" x:Name="btn3" Clicked="btn3_Clicked" FontSize="Large" />
                     <Button Grid.Row="4" Grid.Column="3" WidthRequest="100" HeightRequest="100" BackgroundColor="Orange" x:Name="btn_eql" Clicked="btn_eql_Clicked" Text="=" FontSize="Large" />
-                    <Button Grid.Row="5" Grid.Column="0" WidthRequest="100" HeightRequest="100" BackgroundColor="RoyalBlue" Text="%" FontSize="Large" />
+                    <Button Grid.Row="5" Grid.Column="0" WidthRequest="100" HeightRequest="100" BackgroundColor="RoyalBlue" x:Name="btn_prcnt" Clicked="btn_prcnt_Clicked" Text="%" FontSize="Large" />
                     <Button Grid.Row="5" Grid.Column="1" WidthRequest="100" HeightRequest="100" BackgroundColor="RoyalBlue" x:Name="btn0" Clicked="btn0_clicked" Text="0" FontSize="Large" />
                     <Button x:Name="btn_dcm" Grid.Row="5" Grid.Column="2" WidthRequest="100" HeightRequest="100" BackgroundColor="IndianRed" Text="." Clicked="dcm_Clicked" FontSize="Large" />
-                    <Button Grid.Row="5" Grid.Column="3" WidthRequest="100" HeightRequest="100" BackgroundColor="Yellow" Text="^" />
+                    <Button Grid.Row="5" Grid.Column="3" WidthRequest="100" HeightRequest="100" BackgroundColor="Yellow" x:Name="btn_exp" Clicked="btn_exp_Clicked" Text="^" />
                 </Grid>
             </Grid>
         </VerticalStackLayout>

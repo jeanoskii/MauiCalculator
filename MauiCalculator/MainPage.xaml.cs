@@ -15,6 +15,7 @@ public partial class MainPage : ContentPage
         Division,
         Subtraction,
         Exponent,
+        Percent,
         None
     }
 
@@ -30,22 +31,31 @@ public partial class MainPage : ContentPage
     //	count++;
     //} Unnecessary
 
-    private Operator calculate(float[] operands, Operator op, bool isCalculatedByEqual) {
+    private void btn_prcnt_Clicked(object sender, EventArgs e)
+    {
+        if (lblInput.Text == null || lblInput.Text=="")
+        {
+            lblInputOutput.Text = "0";
+            return;
+        }
+        else
+        {
+            operationMethodBody(Operator.Percent, lblInput.Text.Split(' ')[1][0]);
+        }
+    }
+
+    private Operator calculate(float[] operands, Operator op, bool isCalculatedByEqual, char symbol) {
         float result = 0;
-        char symbol = ' ';
 
         switch (op)
         {
             case Operator.Addition:
-                symbol = '+';
                 result = operands[0] + operands[1];
                 break;
             case Operator.Multiplication:   
-                symbol = '*';
                 result = operands[0] * operands[1];
                 break;
             case Operator.Division:
-                symbol = '/';
                 try { 
                     result = (operands[1] == 0) ? throw new DivideByZeroException("Cannot divide by zero") : operands[0] / operands[1]; 
                 } catch (DivideByZeroException e)
@@ -56,12 +66,15 @@ public partial class MainPage : ContentPage
                 }
                 break;
             case Operator.Subtraction:
-                symbol = '-';
                 result = operands[0] - operands[1];
                 break;
             case Operator.Exponent:
-                symbol = '^';
-                Math.Pow(operands[0], operands[1]);
+                result = (float)Math.Pow(operands[0], operands[1]);
+                break;
+            case Operator.Percent:
+                result = (symbol == '+' || symbol == '-') 
+                    ? operands[1] * (operands[0]/100)
+                    : operands[1]/100;
                 break;
         }
 
@@ -86,6 +99,8 @@ public partial class MainPage : ContentPage
         resetBools();
     }
 
+
+    // Overloaded method so you can programmatically call the clear function
     private void btn_c_Clicked()
     {
         lblInput.Text = "";
@@ -100,6 +115,7 @@ public partial class MainPage : ContentPage
         {
             btn_c_Clicked();
         }
+
         if (input=='.')
         {
             lblInputOutput.Text = (!hasDecimal) ? lblInputOutput.Text += input : lblInputOutput.Text;
@@ -107,6 +123,7 @@ public partial class MainPage : ContentPage
             isFreshInput = false;
             return;
         }
+
         lblInputOutput.Text = (lblInputOutput.Text == "0" || isFreshInput) ? input.ToString() : lblInputOutput.Text += input;
         isFreshInput = false;
     }
@@ -138,7 +155,11 @@ public partial class MainPage : ContentPage
 
     private void operationMethodBody(Operator op, char symb)
     {
-        selectedOp = (selectedOp == Operator.None || isFreshInput) ? op : calculate(new float[] { float.Parse(lblInput.Text.Split(' ')[0]), float.Parse(lblInputOutput.Text) }, selectedOp, false);
+        selectedOp = (op == Operator.Percent) 
+            ? calculate(new float[] { float.Parse(lblInput.Text.Split(' ')[0]), float.Parse(lblInputOutput.Text) }, op, false, symb) 
+            : (selectedOp == Operator.None || isFreshInput) 
+            ? op 
+            : calculate(new float[] { float.Parse(lblInput.Text.Split(' ')[0]), float.Parse(lblInputOutput.Text) }, selectedOp, false, symb);
         if (lblInputOutput.Text.EndsWith('.'))
         {
             lblInputOutput.Text = lblInputOutput.Text.Substring(0, lblInputOutput.Text.Length - 1);
@@ -153,6 +174,12 @@ public partial class MainPage : ContentPage
         hasDecimal = false;
     }
 
+    private void btn_exp_Clicked(object sender, EventArgs e)
+    {
+        operationMethodBody(Operator.Exponent, '^');
+    }
+
+
     private void btn_eql_Clicked(object sender, EventArgs e)
     {
         if (selectedOp == Operator.None)
@@ -162,8 +189,8 @@ public partial class MainPage : ContentPage
         if (!hasError)
         {
             Operator invert = (!lblInput.Text.Contains('='))
-                ? calculate(new float[] { float.Parse(lblInput.Text.Split(' ')[0]), float.Parse(lblInputOutput.Text) }, selectedOp, true)
-                : calculate(new float[] { float.Parse(lblInputOutput.Text), float.Parse(lblInput.Text.Split(' ')[2]) }, selectedOp, true);
+                ? calculate(new float[] { float.Parse(lblInput.Text.Split(' ')[0]), float.Parse(lblInputOutput.Text) }, selectedOp, true, lblInput.Text.Split(' ')[1][0])
+                : calculate(new float[] { float.Parse(lblInputOutput.Text), float.Parse(lblInput.Text.Split(' ')[2]) }, selectedOp, true, lblInput.Text.Split(' ')[1][0]);
         } else
         {
             btn_c_Clicked();
