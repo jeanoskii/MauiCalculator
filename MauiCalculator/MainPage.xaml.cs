@@ -173,6 +173,7 @@ public partial class MainPage : ContentPage
     {
         isFreshInput = true;
         hasDecimal = false;
+        hasError = false;
     }
 
     private void btn_exp_Clicked(object sender, EventArgs e)
