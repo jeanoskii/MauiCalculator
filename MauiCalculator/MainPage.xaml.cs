@@ -8,6 +8,8 @@ public partial class MainPage : ContentPage
     bool hasDecimal = false;
     bool isFreshInput = true;
     bool hasError = false;
+    bool isPrevPercOp = false;
+    float memoizedPercent = 0;
     enum Operator
     {
         Addition,
@@ -47,6 +49,12 @@ public partial class MainPage : ContentPage
     private Operator calculate(float[] operands, Operator op, bool isCalculatedByEqual, char symbol) {
         float result = 0;
 
+        if (selectedOp != Operator.Percent)
+        {
+            isPrevPercOp = false;
+            memoizedPercent = 0;
+        }
+
         switch (op)
         {
             case Operator.Addition:
@@ -72,9 +80,9 @@ public partial class MainPage : ContentPage
                 result = (float)Math.Pow(operands[0], operands[1]);
                 break;
             case Operator.Percent:
-                result = (symbol == '+' || symbol == '-') 
+                result = ((symbol == '+' || symbol == '-') && !(lblInput.Text.Contains('=')) && !isPrevPercOp)
                     ? operands[1] * (operands[0]/100)
-                    : operands[1]/100;
+                    : (!lblInput.Text.Contains('=')) ? (!isPrevPercOp) ? operands[1]/100 : memoizePercentResult(operands) : memoizePercentResult(operands);
                 break;
         }
 
@@ -84,6 +92,16 @@ public partial class MainPage : ContentPage
 
         lblInputOutput.Text = result.ToString();
         return selectedOp;
+    }
+
+    private float memoizePercentResult(float[] operands)
+    {
+        if (memoizedPercent == 0)
+        {
+            memoizedPercent = float.Parse(lblInputOutput.Text) / 100;
+            isPrevPercOp = true;
+        }
+        return memoizedPercent * operands[1];
     }
 
     private void btn_ce_Clicked(object sender, EventArgs e)
@@ -156,11 +174,11 @@ public partial class MainPage : ContentPage
 
     private void operationMethodBody(Operator op, char symb)
     {
-        selectedOp = (op == Operator.Percent) 
-            ? calculate(new float[] { float.Parse(lblInput.Text.Split(' ')[0]), float.Parse(lblInputOutput.Text) }, op, false, symb) 
-            : (selectedOp == Operator.None || isFreshInput) 
-            ? op 
-            : calculate(new float[] { float.Parse(lblInput.Text.Split(' ')[0]), float.Parse(lblInputOutput.Text) }, selectedOp, false, symb);
+        selectedOp = (op == Operator.Percent)
+                    ? calculate(new float[] { float.Parse(lblInput.Text.Split(' ')[0]), float.Parse(lblInputOutput.Text) },op,false,symb)
+                    : (selectedOp == Operator.None || isFreshInput)
+                        ? op
+                        : calculate(new float[] { float.Parse(lblInput.Text.Split(' ')[0]), float.Parse(lblInputOutput.Text) },selectedOp,false,symb);
         if (lblInputOutput.Text.EndsWith('.'))
         {
             lblInputOutput.Text = lblInputOutput.Text.Substring(0, lblInputOutput.Text.Length - 1);
