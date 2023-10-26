@@ -1,4 +1,5 @@
-﻿using System.Reflection.Emit;
+﻿using Microsoft.Maui.Controls.Platform;
+using System.Reflection.Emit;
 
 namespace MauiCalculator;
 
@@ -25,13 +26,15 @@ public partial class MainPage : ContentPage
 
 	public MainPage()
 	{
-		InitializeComponent();
-	}
+        InitializeComponent();
+    }
+
 
     //private void OnCounterClicked(object sender, EventArgs e)
     //{
     //	count++;
     //} Unnecessary
+
 
     private void btn_prcnt_Clicked(object sender, EventArgs e)
     {
@@ -49,7 +52,7 @@ public partial class MainPage : ContentPage
     private Operator calculate(float[] operands, Operator op, bool isCalculatedByEqual, char symbol) {
         float result = 0;
 
-        if (selectedOp != Operator.Percent)
+        if (op != Operator.Percent)
         {
             isPrevPercOp = false;
             memoizedPercent = 0;
@@ -80,6 +83,7 @@ public partial class MainPage : ContentPage
                 result = (float)Math.Pow(operands[0], operands[1]);
                 break;
             case Operator.Percent:
+                btn5.Text = isPrevPercOp.ToString();
                 result = ((symbol == '+' || symbol == '-') && !(lblInput.Text.Contains('=')) && !isPrevPercOp)
                     ? operands[1] * (operands[0]/100)
                     : (!lblInput.Text.Contains('=')) ? (!isPrevPercOp) ? operands[1]/100 : memoizePercentResult(operands) : memoizePercentResult(operands);
@@ -93,6 +97,8 @@ public partial class MainPage : ContentPage
         lblInputOutput.Text = result.ToString();
         return selectedOp;
     }
+
+    // TODO FIX PERCENTAGE MULTIPLICATION SYMBOL
 
     private float memoizePercentResult(float[] operands)
     {
@@ -174,6 +180,10 @@ public partial class MainPage : ContentPage
 
     private void operationMethodBody(Operator op, char symb)
     {
+        if (op != Operator.Percent)
+        {
+            isPrevPercOp = false;
+        }
         selectedOp = (op == Operator.Percent)
                     ? calculate(new float[] { float.Parse(lblInput.Text.Split(' ')[0]), float.Parse(lblInputOutput.Text) },op,false,symb)
                     : (selectedOp == Operator.None || isFreshInput)

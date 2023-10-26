@@ -10,13 +10,14 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" FontSize="16" x:Name="lblInput" />
                 <Label Grid.Row="1" Grid.Column="0" FontSize="32" Text="0" x:Name="lblInputOutput" />
-                <Grid Grid.Row="2" Grid.Column="0" RowDefinitions="20,100,100,100,100,100,100"
+                <Grid Grid.Row="2" Grid.Column="0" RowDefinitions="20,100,100,100,100,100"
                   ColumnDefinitions="100,100,100,100,100">
                     <Button Grid.Row="1" Grid.Column="0" WidthRequest="100" HeightRequest="100" BackgroundColor="Blue" Text="C" FontSize="Large" x:Name="btnBackSpace" Clicked="btn_c_Clicked" />
                     <Button Grid.Row="1" Grid.Column="1" WidthRequest="100" HeightRequest="100" BackgroundColor="Pink" x:Name="btn_dvde" Clicked="btn_dvde_Clicked" Text="/" FontSize="Large" />
