@@ -4,236 +4,43 @@
              x:Class="MauiCalculator.MainPage">
 
     <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
-            <Grid
-                RowDefinitions="100,100,100,100,100,100"
-                ColumnDefinitions="100,100,100,100,100"
-                >
-                <Label
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Text="hello" 
-                    x:Name="lblOutput"
-                    />
-                <Button
-                        Grid.Column="0"
-                        Grid.Row="1"
-                    WidthRequest="100"
-                    HeightRequest="100"
-                    BackgroundColor="Blue"
-                    Text="C"
-                    FontSize="Large"
-                    x:Name="btnBackSpace"
-                    Clicked="btnBackSpace_Clicked"
-                    
-                 />
-                <Button 
-                     Grid.Row="1"
-                     Grid.Column="1"
-                     WidthRequest="100"
-                     HeightRequest="100"
-                     BackgroundColor="Pink"
-                     Text="/"
-                         FontSize="Large"
-    
-                     />
-                <Button 
-                     Grid.Column="2"
-                    Grid.Row="1"
-                     WidthRequest="100"
-                     HeightRequest="100"
-                     BackgroundColor="Violet"
-                        Text="x"
-                         FontSize="Large"
-                    
-    
-                     />
-                <Button 
-                      Grid.Column="3"
-                    Grid.Row="1"
-                      WidthRequest="100"
-                     HeightRequest="100"
-                     BackgroundColor="Indigo"
-                       Text="Erase"
-                        FontSize="Medium"
-                         />
-                <Button 
-                    Grid.Column="0"
-                    Grid.Row="2"
-                    WidthRequest="100"
-                    HeightRequest="100"
-                    BackgroundColor="RoyalBlue"
-                         Text="7"
-                    x:Name="btn7"
-                    Clicked="btn7_Clicked"
-                          FontSize="Large"
-                            
-                    />
-
-                <Button 
-Grid.Column="1"
-Grid.Row="2"
-WidthRequest="100"
-HeightRequest="100"
-BackgroundColor="RoyalBlue"
-Text="8"
-                        x:Name="btn8"
-                        Clicked="btn8_Clicked"
-        FontSize="Large"
-/>
-                <Button
-Grid.Column="2"
-Grid.Row="2"
-WidthRequest="100"
-HeightRequest="100"
-BackgroundColor="IndianRed"
-Text="9"
-                    x:Name="btn9"
-                    Clicked="btn9_Clicked"
-        FontSize="Large"
-/>
-                <Button
-Grid.Column="3"
-Grid.Row="2"
-WidthRequest="100"
-HeightRequest="100"
-BackgroundColor="Orange"
-Text="-"                 
-        FontSize="Large"
-/>
-                <Button
-                    Grid.Column="0"
-                    Grid.Row="3"
-                    WidthRequest="100"
-                    HeightRequest="100"
-                    BackgroundColor="RoyalBlue"
-                            Text="4"
-                    x:Name="btn4"
-                    Clicked="btn4_Clicked"
-                    FontSize="Large"
-                    />
-
-                <Button
-Grid.Column="1"
-Grid.Row="3"
-WidthRequest="100"
-HeightRequest="100"
-BackgroundColor="RoyalBlue"
-Text="5" 
-                    x:Name="btn5"
-                    Clicked="btn5_Clicked"
-                    
-    
-FontSize="Large"
-/>
-                <Button
-Grid.Column="2"
-Grid.Row="3"
-WidthRequest="100"
-HeightRequest="100"
-BackgroundColor="IndianRed"
-  Text="6"
-                    x:Name="btn6"
-                    Clicked="btn6_Clicked"
-FontSize="Large"
-/>
-                <Button
-Grid.Column="3"
-Grid.Row="3"
-WidthRequest="100"
-HeightRequest="100"
-BackgroundColor="Orange"
-         Text="+"
-FontSize="Large"
-/>
-
-<Button
-                Grid.Column="0"
-                    Grid.Row="4"
-                    WidthRequest="100"
-                    HeightRequest="100"
-                    BackgroundColor="RoyalBlue"
-                           Text="1" 
-                    x:Name="btn1"
-    Clicked="btn1_Clicked"
-    FontSize="Large"
-                    />
-
-                <Button
-Grid.Column="1"
-Grid.Row="4"
-WidthRequest="100"
-HeightRequest="100"
-BackgroundColor="RoyalBlue"
- Text="2"  
-x:Name="btn2"
-Clicked="btn2_Clicked"
-                    FontSize="Large"
-/>
-                <Button
-Grid.Column="2"
-Grid.Row="4"
-WidthRequest="100"
-HeightRequest="100"
-BackgroundColor="IndianRed"
-   Text="3"   
-x:Name="btn3"
-Clicked="btn3_Clicked"
-                    FontSize="Large"
-/>
-                <Button
-Grid.Column="3"
-Grid.Row="4"
-WidthRequest="100"
-HeightRequest="100"
-BackgroundColor="Orange"
-                    Text="="
-                    FontSize="Large"
-        
-/>
-                <Button
-                    Grid.Column="0"
-                    Grid.Row="5"
-                    WidthRequest="100"
-                    HeightRequest="100"
-                    BackgroundColor="RoyalBlue"
-                         Text="%"    
-                    FontSize="Large"
-                    />
-
-                <Button
-Grid.Column="1"
-Grid.Row="5"
-WidthRequest="100"
-HeightRequest="100"
-BackgroundColor="RoyalBlue"
-         Text="0" 
-                    FontSize="Large"
-/>
-                <Button
-Grid.Column="2"
-Grid.Row="5"
-WidthRequest="100"
-HeightRequest="100"
-BackgroundColor="IndianRed"
-  Text="."  
-                    FontSize="Large"
-/>
-                <Button
-Grid.Column="3"
-Grid.Row="5"
-WidthRequest="100"
-HeightRequest="100"
-BackgroundColor="Yellow"
-Text="^"
-/>
-
+        <VerticalStackLayout Spacing="25" Padding="30,20" VerticalOptions="Center">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" FontSize="16" x:Name="lblInput" />
+                <Label Grid.Row="1" Grid.Column="0" FontSize="32" Text="0" x:Name="lblInputOutput" />
+                <Grid Grid.Row="2" Grid.Column="0" RowDefinitions="20,100,100,100,100,100"
+                  ColumnDefinitions="100,100,100,100,100">
+                    <Button Grid.Row="1" Grid.Column="0" WidthRequest="100" HeightRequest="100" BackgroundColor="Blue" Text="C" FontSize="Large" x:Name="btnBackSpace" Clicked="btn_c_Clicked" />
+                    <Button Grid.Row="1" Grid.Column="1" WidthRequest="100" HeightRequest="100" BackgroundColor="Pink" x:Name="btn_dvde" Clicked="btn_dvde_Clicked" Text="/" FontSize="Large" />
+                    <Button Grid.Row="1" Grid.Column="2" WidthRequest="100" HeightRequest="100" BackgroundColor="Violet" x:Name="btn_mltply" Clicked="btn_mltply_Clicked" Text="x" FontSize="Large" />
+                    <Button Grid.Row="1" Grid.Column="3" WidthRequest="100" HeightRequest="100" BackgroundColor="Indigo" x:Name="btn_ce" Clicked="btn_ce_Clicked" Text="CE" FontSize="Medium" />
+                    <Button Grid.Row="2" Grid.Column="0" WidthRequest="100" HeightRequest="100" BackgroundColor="RoyalBlue" Text="7" x:Name="btn7" Clicked="btn7_Clicked" FontSize="Large" />
+                    <Button Grid.Row="2" Grid.Column="1" WidthRequest="100" HeightRequest="100" BackgroundColor="RoyalBlue" Text="8" x:Name="btn8" Clicked="btn8_Clicked" FontSize="Large" />
+                    <Button Grid.Row="2" Grid.Column="2" WidthRequest="100" HeightRequest="100" BackgroundColor="IndianRed" Text="9" x:Name="btn9" Clicked="btn9_Clicked" FontSize="Large" />
+                    <Button Grid.Row="2" Grid.Column="3" WidthRequest="100" HeightRequest="100" BackgroundColor="Orange" x:Name="btn_sbtrct" Clicked="btn_sbtrct_Clicked" Text="-" FontSize="Large" />
+                    <Button Grid.Row="3" Grid.Column="0" WidthRequest="100" HeightRequest="100" BackgroundColor="RoyalBlue" Text="4" x:Name="btn4" Clicked="btn4_Clicked" FontSize="Large" />
+                    <Button Grid.Row="3" Grid.Column="1" WidthRequest="100" HeightRequest="100" BackgroundColor="RoyalBlue" Text="5" x:Name="btn5" Clicked="btn5_Clicked" FontSize="Large" />
+                    <Button Grid.Row="3" Grid.Column="2" WidthRequest="100" HeightRequest="100" BackgroundColor="IndianRed" Text="6" x:Name="btn6" Clicked="btn6_Clicked" FontSize="Large" />
+                    <Button x:Name="btn_add"  Grid.Row="3" Grid.Column="3" WidthRequest="100" HeightRequest="100" BackgroundColor="Orange" Text="+" Clicked="btn_add_Clicked" FontSize="Large" />
+                    <Button Grid.Row="4" Grid.Column="0" WidthRequest="100" HeightRequest="100" BackgroundColor="RoyalBlue" Text="1" x:Name="btn1" Clicked="btn1_Clicked" FontSize="Large" />
+                    <Button Grid.Row="4" Grid.Column="1" WidthRequest="100" HeightRequest="100" BackgroundColor="RoyalBlue" Text="2" x:Name="btn2" Clicked="btn2_Clicked" FontSize="Large" />
+                    <Button Grid.Row="4" Grid.Column="2" WidthRequest="100" HeightRequest="100" BackgroundColor="IndianRed" Text="3" x:Name="btn3" Clicked="btn3_Clicked" FontSize="Large" />
+                    <Button Grid.Row="4" Grid.Column="3" WidthRequest="100" HeightRequest="100" BackgroundColor="Orange" x:Name="btn_eql" Clicked="btn_eql_Clicked" Text="=" FontSize="Large" />
+                    <Button Grid.Row="5" Grid.Column="0" WidthRequest="100" HeightRequest="100" BackgroundColor="RoyalBlue" x:Name="btn_prcnt" Clicked="btn_prcnt_Clicked" Text="%" FontSize="Large" />
+                    <Button Grid.Row="5" Grid.Column="1" WidthRequest="100" HeightRequest="100" BackgroundColor="RoyalBlue" x:Name="btn0" Clicked="btn0_clicked" Text="0" FontSize="Large" />
+                    <Button x:Name="btn_dcm" Grid.Row="5" Grid.Column="2" WidthRequest="100" HeightRequest="100" BackgroundColor="IndianRed" Text="." Clicked="dcm_Clicked" FontSize="Large" />
+                    <Button Grid.Row="5" Grid.Column="3" WidthRequest="100" HeightRequest="100" BackgroundColor="Yellow" x:Name="btn_exp" Clicked="btn_exp_Clicked" Text="^" />
+                </Grid>
             </Grid>
-            
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>
